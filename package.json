@@ -1,0 +1,19 @@
+{
+  "name": "ast",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon --watch 'src/' --exec 'ts-node src/app.ts' -e ts"
+  },
+  "keywords": [],
+  "author": "Paulo Menezes",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/node": "^14.14.31",
+    "nodemon": "^2.0.7",
+    "ts-morph": "^10.0.1",
+    "ts-node": "^9.1.1",
+    "typescript": "^4.2.2"
+  }
+}
