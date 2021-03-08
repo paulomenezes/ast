@@ -1,0 +1,178 @@
+{
+  "angular": {
+    "main": {
+      "prefix": "app",
+      "path": "/Users/paulomenezes/repositories/ss-in-home/app/frontend/src/main.ts",
+      "module": {
+        "name": "AppModule",
+        "path": "/Users/paulomenezes/repositories/ss-in-home/app/frontend/src/app/app.module.ts"
+      },
+      "moduleRouter": {
+        "path": "/Users/paulomenezes/repositories/ss-in-home/app/frontend/src/app/app-routing.module.ts",
+        "name": "AppRoutingModule"
+      },
+      "bootstrapElement": {
+        "file": {
+          "name": "AppComponent",
+          "path": "/Users/paulomenezes/repositories/ss-in-home/app/frontend/src/app/app.component.ts"
+        },
+        "selector": "app-root",
+        "templateUrl": "/Users/paulomenezes/repositories/ss-in-home/app/frontend/src/app/app.component.html",
+        "styleUrls": ["/Users/paulomenezes/repositories/ss-in-home/app/frontend/src/app/app.component.scss"],
+        "component": {
+          "globalVariables": {
+            "isLogged": {
+              "modifier": "public",
+              "usedInTemplate": false,
+              "usedInComponent": false,
+              "value": "false",
+              "type": "boolean"
+            },
+            "isLoading": {
+              "modifier": "public",
+              "usedInTemplate": true,
+              "usedInComponent": false,
+              "value": "false",
+              "type": "boolean"
+            },
+            "loadingSubscription": {
+              "modifier": "private",
+              "usedInTemplate": false,
+              "usedInComponent": false,
+              "type": "Subscription"
+            }
+          },
+          "constructor": {
+            "parameters": {
+              "translate": {
+                "modifier": "public",
+                "type": "TranslateService",
+                "isGlobal": false,
+                "isInternal": false
+              },
+              "dateAdapter": {
+                "modifier": "public",
+                "type": "DateAdapter",
+                "isGlobal": false,
+                "isInternal": false
+              },
+              "connectionService": {
+                "modifier": "public",
+                "type": "ConnectionService",
+                "isGlobal": true,
+                "isInternal": true
+              },
+              "setupService": {
+                "modifier": "private",
+                "type": "SetupService",
+                "isGlobal": true,
+                "isInternal": true
+              }
+            },
+            "statements": [
+              {
+                "variableDeclaration": {
+                  "name": "userLanguage",
+                  "value": "getUserLanguage",
+                  "import": {
+                    "path": "./shared/utils"
+                  }
+                }
+              },
+              {
+                "callExpression": {
+                  "calls": ["translate", "setDefaultLang(userLanguage)"],
+                  "parameters": ["userLanguage"]
+                }
+              },
+              {
+                "callExpression": {
+                  "calls": ["translate", "use(userLanguage)"],
+                  "parameters": ["userLanguage"]
+                }
+              },
+              {
+                "callExpression": {
+                  "calls": ["dateAdapter", "setLocale(userLanguage)"],
+                  "parameters": ["userLanguage"]
+                }
+              }
+            ]
+          },
+          "implements": ["OnInit"],
+          "lifecycle": {
+            "onInit": {
+              "implemented": false,
+              "statements": [
+                {
+                  "callExpression": {
+                    "calls": ["this", "setupService", "initAllProcess()"],
+                    "parameters": []
+                  }
+                },
+                {
+                  "binaryExpression": {
+                    "property": "loadingSubscription",
+                    "subscribeExpression": {
+                      "calls": ["LoadingSpinnerService", "isLoading()", "subscribe"],
+                      "parameters": [
+                        {
+                          "name": "loading",
+                          "type": "boolean"
+                        }
+                      ],
+                      "statements": [
+                        {
+                          "binaryExpression": {
+                            "property": "this.isLoading",
+                            "value": "loading"
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              ]
+            },
+            "onDestroy": {
+              "implemented": false,
+              "statements": [
+                {
+                  "if": {
+                    "condition": "this.loadingSubscription",
+                    "statements": [
+                      {
+                        "callExpression": {
+                          "calls": ["this", "loadingSubscription", "unsubscribe()"],
+                          "parameters": []
+                        }
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          }
+        },
+        "html": {
+          "hasRouterOutlet": true,
+          "elements": [
+            {
+              "type": "app-loading-spinner",
+              "properties": {
+                "backdrop": {
+                  "static": false,
+                  "value": "true"
+                },
+                "loading": {
+                  "static": false,
+                  "variable": "isLoading"
+                }
+              }
+            }
+          ]
+        }
+      }
+    }
+  }
+}
